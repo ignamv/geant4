@@ -12,6 +12,7 @@ __version__ ='10.3'
 __date__ = 'November/2016'
 __author__ = 'K.Murakami (Koichi.Murakami@kek.jp)'
 
+import logging
 # import submodules
 from G4interface import *
 from G4intercoms import *
@@ -32,6 +33,7 @@ from G4graphics_reps import *
 from hepunit import *
 from colortable import *
 
+
 def print_version():
   print """=============================================================
   Welcome to Geant4Py (A Geant4-Python Bridge)
@@ -46,7 +48,22 @@ def print_version():
 # initialize
 # ==================================================================
 # set G4cout/G4cerr to Python stdout
-SetG4PyCoutDestination()
+class LoggerCoutDestination(G4UIsession):
+    def __init__(self, logger):
+        super(LoggerCoutDestination, self).__init__()
+        self.logger = logger
+        
+    def ReceiveG4cout(self, string):
+        self.logger.info(str(string).rstrip())
+        return 0
+    
+    def ReceiveG4cerr(self, string):
+        self.logger.error(str(string).rstrip())
+        return 0
+
+gLogger = logging.getLogger(__name__)
+__cout_destination = LoggerCoutDestination(gLogger)
+G4UImanager.GetUIpointer().SetCoutDestination(__cout_destination)
 
 # ==================================================================
 # globals, which start with "g"
@@ -69,6 +86,9 @@ gStackManager = gEventManager.GetStackManager()
 
 # gTrackingManager
 gTrackingManager = gEventManager.GetTrackingManager()
+
+# gSDManager
+gSDManager = G4SDManager.GetSDMpointer()
 
 # gStateManager
 gStateManager = G4StateManager.GetStateManager()

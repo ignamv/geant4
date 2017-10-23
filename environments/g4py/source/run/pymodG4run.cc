@@ -46,6 +46,7 @@ void export_G4VUserDetectorConstruction();
 void export_G4VUserPhysicsList();
 void export_G4VModularPhysicsList();
 void export_G4VPhysicsConstructor();
+void export_G4SDManager();
 
 BOOST_PYTHON_MODULE(G4run) 
 {
@@ -58,4 +59,5 @@ BOOST_PYTHON_MODULE(G4run)
   export_G4VUserPhysicsList();
   export_G4VModularPhysicsList();
   export_G4VPhysicsConstructor();
+  export_G4SDManager();
 }

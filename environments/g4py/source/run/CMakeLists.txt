@@ -7,6 +7,7 @@ add_library(
   pyG4Run.cc
   pyG4RunManager.cc
   pyG4RunManagerKernel.cc
+  pyG4SDManager.cc
   pyG4UserRunAction.cc
   pyG4VModularPhysicsList.cc
   pyG4VPhysicsConstructor.cc

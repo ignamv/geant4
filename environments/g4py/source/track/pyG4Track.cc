@@ -46,6 +46,8 @@ void export_G4Track()
     .def("GetParentID",            &G4Track::GetParentID)
     .def("GetDynamicParticle",   &G4Track::GetDynamicParticle,
          return_internal_reference<>())
+    .def("GetParticleDefinition",   &G4Track::GetParticleDefinition,
+         return_internal_reference<>())
     .def("GetDefinition",          &G4Track::GetDefinition,
          return_internal_reference<>())
     .def("GetPosition",            &G4Track::GetPosition,

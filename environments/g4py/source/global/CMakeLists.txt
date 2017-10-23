@@ -5,6 +5,7 @@ set(_TARGET pyG4global)
 add_library(
   ${_TARGET} SHARED
   G4PyCoutDestination.cc
+  pyG4coutDestination.cc
   pyG4ApplicationState.cc
   pyG4Exception.cc
   pyG4ExceptionHandler.cc

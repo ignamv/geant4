@@ -35,6 +35,7 @@
 #include <boost/python.hpp>
 #include "G4UImanager.hh"
 #include "G4UIcommandTree.hh"
+#include "G4UIsession.hh"
 
 using namespace boost::python;
 
@@ -142,6 +143,7 @@ void export_G4UImanager()
    // ---
    .def("GetTree",   &G4UImanager::GetTree,
         return_value_policy<reference_existing_object>())
+   .def("SetCoutDestination", &G4UImanager::SetCoutDestination)
    ;
 
   // ---

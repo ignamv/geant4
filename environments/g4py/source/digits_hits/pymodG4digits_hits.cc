@@ -38,9 +38,11 @@ using namespace boost::python;
 // ====================================================================
 
 void export_G4VSensitiveDetector();
+void export_G4HCofThisEvent();
 
 BOOST_PYTHON_MODULE(G4digits_hits)
 {
   export_G4VSensitiveDetector();
+  export_G4HCofThisEvent();
 }
 

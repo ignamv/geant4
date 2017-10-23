@@ -56,6 +56,7 @@ void export_G4Exception();
 void export_G4ExceptionHandler();
 void export_G4ExceptionSeverity();
 void export_G4TwoVector();
+void export_G4coutDestination();
 
 BOOST_PYTHON_MODULE(G4global) 
 {
@@ -78,5 +79,6 @@ BOOST_PYTHON_MODULE(G4global)
   export_G4Exception();
   export_G4ExceptionHandler();
   export_G4ExceptionSeverity();
+  export_G4coutDestination();
 }
 

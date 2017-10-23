@@ -49,6 +49,15 @@ public:
     : G4VSensitiveDetector(name) { }
   ~CB_G4VSensitiveDetector() { }
 
+  void Initialize(G4HCofThisEvent *hits) {
+		if (override f = get_override("Initialize"))
+            f(hits);
+        else
+            G4VSensitiveDetector::Initialize(hits);
+  }
+  void DefaultInitialize(G4HCofThisEvent *hits) {
+    this->G4VSensitiveDetector::Initialize(hits);
+  }
   G4bool ProcessHits(G4Step* aStep, G4TouchableHistory* ROhist) {
     return get_override("ProcessHits")(&aStep, &ROhist);
   }
@@ -68,7 +77,8 @@ void export_G4VSensitiveDetector()
     // ---
     .def(init<const G4String&>())
     // ---
-    .def("Initialize",      &G4VSensitiveDetector::Initialize)
+    .def("Initialize",      &G4VSensitiveDetector::Initialize,
+                            &CB_G4VSensitiveDetector::DefaultInitialize)
     .def("EndOfEvent",      &G4VSensitiveDetector::EndOfEvent)
     .def("clear",           &G4VSensitiveDetector::clear)
     .def("DrawAll",         &G4VSensitiveDetector::DrawAll)

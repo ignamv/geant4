@@ -31,6 +31,7 @@
 // ====================================================================
 #include <boost/python.hpp>
 #include "G4VUserDetectorConstruction.hh"
+#include "G4VSensitiveDetector.hh"
 #include "G4VPhysicalVolume.hh"
 
 using namespace boost::python;
@@ -46,6 +47,25 @@ struct CB_G4VUserDetectorConstruction :
   G4VPhysicalVolume* Construct() {
     return get_override("Construct")();
   }
+  void ConstructSDandField() {
+      if (override f = get_override("ConstructSDandField"))
+          f();
+      else
+          G4VUserDetectorConstruction::ConstructSDandField();
+  }
+  void DefaultConstructSDandField() {
+    this->G4VUserDetectorConstruction::ConstructSDandField();
+  }
+  void SetSensitiveDetector(const G4String &logVolName,
+        G4VSensitiveDetector *aSD, G4bool multi) {
+    this->G4VUserDetectorConstruction::SetSensitiveDetector(
+        logVolName, aSD, multi);
+  }
+
+void (G4VUserDetectorConstruction::*f1_SetSensitiveDetector)(const G4String &,
+        G4VSensitiveDetector*, G4bool)
+  = &G4VUserDetectorConstruction::SetSensitiveDetector;
+
 };
 
 }
@@ -63,8 +83,12 @@ void export_G4VUserDetectorConstruction()
     ("G4VUserDetectorConstruction",
      "base class of user detector construction")
 
+    .def("SetSensitiveDetector", &CB_G4VUserDetectorConstruction::SetSensitiveDetector)
     .def("Construct",
 	 pure_virtual(&G4VUserDetectorConstruction::Construct),
          return_value_policy<reference_existing_object>())
+    .def("ConstructSDandField",
+        &G4VUserDetectorConstruction::ConstructSDandField,
+        &CB_G4VUserDetectorConstruction::DefaultConstructSDandField)
     ;
 }
