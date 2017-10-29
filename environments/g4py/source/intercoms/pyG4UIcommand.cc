@@ -83,5 +83,6 @@ void export_G4UIcommand()
          return_value_policy<reference_existing_object>())
     .def("GetStateList",        f_GetStateList)
     .def("GetTitle",            &G4UIcommand::GetTitle)
+    .def("SetGuidance",         &G4UIcommand::SetGuidance)
     ;
 }

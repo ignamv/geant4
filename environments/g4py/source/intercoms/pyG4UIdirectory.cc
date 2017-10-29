@@ -23,36 +23,24 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: pymodG4intercoms.cc 66892 2013-01-17 10:57:59Z gunter $
+// $Id: pyG4UIcommand.cc 76884 2013-11-18 12:54:03Z gcosmo $
 // ====================================================================
-//   pymodG4intercoms.cc [Geant4Py module]
+//   pyG4UIcommand.cc
 //
-//                                         2005 Q
+//                                         2006 Q
 // ====================================================================
 #include <boost/python.hpp>
+#include "G4UIdirectory.hh"
 
 using namespace boost::python;
+
 
 // ====================================================================
 // module definition
 // ====================================================================
-
-void export_G4UImanager();
-void export_G4UIcommandTree();
-void export_G4UIcommand();
-void export_G4UIparameter();
-void export_G4UIdirectory();
-void export_G4UImessenger();
-void export_G4UIcmdWith();
-
-BOOST_PYTHON_MODULE(G4intercoms)
+void export_G4UIdirectory()
 {
-  export_G4UImanager();
-  export_G4UIcommandTree();
-  export_G4UIcommand();
-  export_G4UIparameter();
-  export_G4UImessenger();
-  export_G4UIdirectory();
-  export_G4UIcmdWith();
+  class_<G4UIdirectory, boost::noncopyable, bases<G4UIcommand>>
+      ("G4UIdirectory", "UI directory", init<const char*, G4bool>())
+    ;
 }
-

@@ -6,8 +6,11 @@ add_library(
   ${_TARGET} SHARED
   pyG4UIcommand.cc
   pyG4UIcommandTree.cc
+  pyG4UIdirectory.cc
   pyG4UImanager.cc
   pyG4UIparameter.cc
+  pyG4UImessenger.cc
+  pyG4UIcmdWith.cc
   pymodG4intercoms.cc
 )
 

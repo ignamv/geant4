@@ -260,3 +260,7 @@ def _run_abort(signum, frame):
 
 if (threading.activeCount() == 1):
   signal.signal(signal.SIGINT, _run_abort)
+
+def G4String__repr__(g4string):
+    return 'G4String("' + str(g4string) + '")'
+G4String.__repr__ = G4String__repr__
