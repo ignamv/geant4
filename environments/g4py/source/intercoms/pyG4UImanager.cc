@@ -33,6 +33,7 @@
 //                                         2006 Q
 // ====================================================================
 #include <boost/python.hpp>
+#include <boost/format.hpp>
 #include "G4UImanager.hh"
 #include "G4UIcommandTree.hh"
 #include "G4UIsession.hh"
@@ -66,41 +67,36 @@ G4int ApplyUICommand_1(const G4String& cmdstr)
 
   switch(commandStatus) {
     case fCommandSucceeded:
-      break;
+      return returnVal;
 
     case fCommandNotFound:
-      G4cout << "command <" << UImgr-> SolveAlias(cmdstr)
-	     << "> not found" << G4endl;
-      break;
+      throw std::runtime_error((boost::format("command <%1%> not found")
+                               % UImgr-> SolveAlias(cmdstr)).str());
 
     case fIllegalApplicationState:
-      G4cout << "illegal application state -- command refused"
-	     << G4endl;
-      break;
+      throw std::runtime_error("illegal application state -- command refused");
 
     case fParameterOutOfRange:
-      break;
+      throw std::runtime_error("Parameter out of range");
 
     case fParameterOutOfCandidates:
-      G4cout << "Parameter is out of candidate list (index "
-	     << paramIndex << ")"
-	     << G4endl;
-      break;
+      throw std::runtime_error((boost::format(
+                      "Parameter is out of candidate list (index %1%)")
+                        % paramIndex).str());
 
     case fParameterUnreadable:
-      G4cout << "Parameter is wrong type and/or is not omittable (index "
-	     << paramIndex << ")" << G4endl;
-      break;
+      throw std::runtime_error((boost::format(
+                      "Parameter is wrong type and/or is not omittable (index %1%)")
+                  % paramIndex).str());
 
     case fAliasNotFound:
-      break;
+      throw std::runtime_error("Alias not found");
 
     default:
-      G4cout << "command refused (" << commandStatus << ")" << G4endl;
-      break;
+      throw std::runtime_error((boost::format("Command refused (%1%)") 
+                  % commandStatus).str());
   }
 
-  return returnVal;
 }
 
 /////////////////////////////////////////////////
