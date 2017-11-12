@@ -23,37 +23,38 @@
 // * acceptance of all terms of the Geant4 Software license.          *
 // ********************************************************************
 //
-// $Id: pymodG4event.cc 66892 2013-01-17 10:57:59Z gunter $
+// $Id: pyG4GeneralParticleSource.cc 76884 2013-11-18 12:54:03Z gcosmo $
 // ====================================================================
-//   pymodG4event.cc [Geant4Py module]
+//   pyG4GeneralParticleSource.cc
 //
 //                                         2005 Q
 // ====================================================================
 #include <boost/python.hpp>
+#include "G4GeneralParticleSource.hh"
 
 using namespace boost::python;
 
 // ====================================================================
 // module definition
 // ====================================================================
-void export_G4EventManager();
-void export_G4StackManager();
-void export_G4Event();
-void export_G4UserEventAction();
-void export_G4UserStackingAction();
-void export_G4ClassificationOfNewTrack();
-void export_G4ParticleGun();
-void export_G4GeneralParticleSource();
-
-BOOST_PYTHON_MODULE(G4event)
+void export_G4GeneralParticleSource()
 {
-  export_G4EventManager();
-  export_G4StackManager();
-  export_G4Event();
-  export_G4UserEventAction();
-  export_G4UserStackingAction();
-  export_G4ClassificationOfNewTrack();
-  export_G4ParticleGun();
-  export_G4GeneralParticleSource();
+    class_<G4GeneralParticleSource, boost::noncopyable>
+    ("G4GeneralParticleSource", "particle source")
+    .def("GeneratePrimaryVertex", &G4GeneralParticleSource::GeneratePrimaryVertex)
+    .def("SetParticleDefinition", &G4GeneralParticleSource::SetParticleDefinition)
+    .def("GetParticleDefinition", &G4GeneralParticleSource::GetParticleDefinition,
+    	 return_value_policy<reference_existing_object>())
+    .def("GetParticleMomentumDirection",
+	 &G4GeneralParticleSource::GetParticleMomentumDirection)
+    .def("GetParticleEnergy",     &G4GeneralParticleSource::GetParticleEnergy)
+    .def("SetParticleCharge",     &G4GeneralParticleSource::SetParticleCharge)
+    .def("SetParticlePolarization", &G4GeneralParticleSource::SetParticlePolarization)
+    .def("GetParticlePolarization", &G4GeneralParticleSource::GetParticlePolarization)
+    .def("SetNumberOfParticles",  &G4GeneralParticleSource::SetNumberOfParticles)
+    .def("GetNumberOfParticles",  &G4GeneralParticleSource::GetNumberOfParticles)
+    .def("GetParticlePosition",   &G4GeneralParticleSource::GetParticlePosition)
+    .def("SetParticleTime",       &G4GeneralParticleSource::SetParticleTime)
+    .def("GetParticleTime",       &G4GeneralParticleSource::GetParticleTime)
+    ;
 }
-
