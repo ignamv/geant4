@@ -264,3 +264,12 @@ if (threading.activeCount() == 1):
 def G4String__repr__(g4string):
     return 'G4String("' + str(g4string) + '")'
 G4String.__repr__ = G4String__repr__
+
+def gApplyUICommands(commands):
+    for command in commands:
+        try:
+            gApplyUICommand(command)
+        except Exception as e:
+            e.args += (command,)
+            raise
+
