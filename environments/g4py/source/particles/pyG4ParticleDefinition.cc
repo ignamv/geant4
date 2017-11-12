@@ -93,6 +93,8 @@ void export_G4ParticleDefinition()
     .def("GetVerboseLevel",    &G4ParticleDefinition::GetVerboseLevel)
     .def("SetApplyCutsFlag",   &G4ParticleDefinition::SetApplyCutsFlag)     
     .def("GetApplyCutsFlag",   &G4ParticleDefinition::GetApplyCutsFlag)     
+    .def(self == self)
+    .def(self != self)
     ;
 }
 
