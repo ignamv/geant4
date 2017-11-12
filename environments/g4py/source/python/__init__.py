@@ -273,3 +273,7 @@ def gApplyUICommands(commands):
             e.args += (command,)
             raise
 
+def components(threevector):
+    return threevector.x, threevector.y, threevector.z
+G4ThreeVector.components = components
+
